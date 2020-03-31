@@ -42,20 +42,6 @@ const createMainContentTemplate = () => {
       </div>
 
     </section>
-
-    <section class="films-list--extra">
-      <h2 class="films-list__title">Top rated</h2>
-
-      <div class="films-list__container">
-      </div>
-    </section>
-
-    <section class="films-list--extra">
-      <h2 class="films-list__title">Most commented</h2>
-
-      <div class="films-list__container">
-      </div>
-    </section>
   </section>`
   );
 };
@@ -79,6 +65,26 @@ const createFilmCardTemplate = () => {
             <button class="film-card__controls-item button film-card__controls-item--favorite">Mark as favorite</button>
           </form>
         </article>`
+  );
+};
+
+const getFilmCards = (quantity) => {
+  let temp = [];
+  for (let i = 0; i < quantity; i++) {
+    temp.push(createFilmCardTemplate());
+  }
+  return temp;
+};
+
+const createExtraFilmsListTemplate = (filmsListTittle, filmsListContent) => {
+  return (
+    `<section class="films-list--extra">
+      <h2 class="films-list__title">${filmsListTittle}</h2>
+
+      <div class="films-list__container">
+      ${filmsListContent}
+      </div>
+    </section>`
   );
 };
 
@@ -274,19 +280,13 @@ render(siteHeaderElement, createUserRatingTemplate());
 render(siteMainElement, createSiteMenuTemplate());
 render(siteMainElement, createMainContentTemplate());
 
-const MainFilmListSection = siteMainElement.querySelector(`.films-list`);
-const MainFilmListContainer = MainFilmListSection.querySelector(`.films-list__container`);
-const ExtraFilmListSections = siteMainElement.querySelectorAll(`.films-list--extra`);
+const filmsSection = siteMainElement.querySelector(`.films`);
+const mainFilmListContainer = filmsSection.querySelector(`.films-list__container`);
 
 for (let i = 0; i < MAIN_FILMS_QUANTITY; i++) {
-  render(MainFilmListContainer, createFilmCardTemplate());
+  render(mainFilmListContainer, createFilmCardTemplate());
 }
-render(MainFilmListSection, createShowMoreButtonTemplate());
-
-ExtraFilmListSections.forEach(function (current) { // вооще это дичь, но потом ее все равно переделывать
-  for (let i = 0; i < EXTRA_FILMS_QUANTITY; i++) {
-    render(current.querySelector(`.films-list__container`), createFilmCardTemplate());
-  }
-});
-
+render(mainFilmListContainer, createShowMoreButtonTemplate(), `afterend`);
+render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilmCards(EXTRA_FILMS_QUANTITY)));
+render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilmCards(EXTRA_FILMS_QUANTITY)));
 render(siteFooterElement, createFilmDetailsTemplate(), `afterend`);
