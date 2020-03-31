@@ -69,7 +69,7 @@ const createFilmCardTemplate = () => {
 };
 
 const getFilmCards = (quantity) => {
-  let temp = [];
+  const temp = [];
   for (let i = 0; i < quantity; i++) {
     temp.push(createFilmCardTemplate());
   }
