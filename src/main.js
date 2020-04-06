@@ -10,9 +10,9 @@ const MAIN_FILMS_QUANTITY = 5;
 const EXTRA_FILMS_QUANTITY = 2;
 
 const getFilmCards = (quantity) => {
-  const filmCards = [];
+  let filmCards = ``;
   for (let i = 0; i < quantity; i++) {
-    filmCards.push(createFilmCardTemplate());
+    filmCards = filmCards.concat(createFilmCardTemplate());
   }
   return filmCards;
 };
