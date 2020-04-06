@@ -27,14 +27,11 @@ const siteFooterElement = document.querySelector(`.footer`);
 
 render(siteHeaderElement, createUserRatingTemplate());
 render(siteMainElement, createSiteMenuTemplate());
-render(siteMainElement, createMainContentTemplate());
+render(siteMainElement, createMainContentTemplate(getFilmCards(MAIN_FILMS_QUANTITY)));
 
 const filmsSection = siteMainElement.querySelector(`.films`);
 const mainFilmListContainer = filmsSection.querySelector(`.films-list__container`);
 
-for (let i = 0; i < MAIN_FILMS_QUANTITY; i++) {
-  render(mainFilmListContainer, createFilmCardTemplate());
-}
 render(mainFilmListContainer, createShowMoreButtonTemplate(), `afterend`);
 render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilmCards(EXTRA_FILMS_QUANTITY)));
 render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilmCards(EXTRA_FILMS_QUANTITY)));
