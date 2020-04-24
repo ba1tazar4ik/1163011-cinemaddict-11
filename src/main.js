@@ -35,4 +35,4 @@ const mainFilmListContainer = filmsSection.querySelector(`.films-list__container
 render(mainFilmListContainer, createShowMoreButtonTemplate(), `afterend`);
 render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilmCards(EXTRA_FILMS_QUANTITY)));
 render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilmCards(EXTRA_FILMS_QUANTITY)));
-render(siteFooterElement, createFilmDetailsTemplate(), `afterend`);
+// render(siteFooterElement, createFilmDetailsTemplate(), `afterend`);

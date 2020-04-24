@@ -1,3 +1,12 @@
+const createFilmDetailsAboutMarkup = (array) => {
+  return array.reduce((accumulator, currentValue) => {
+    accumulator = `<tr class="film-details__row">
+                    <td class="film-details__term">Director</td>
+                    <td class="film-details__cell">Anthony Mann</td>
+                  </tr>`;
+  }, ``);
+};
+
 export const createFilmDetailsTemplate = () => {
   return (
     `<section class="film-details">
