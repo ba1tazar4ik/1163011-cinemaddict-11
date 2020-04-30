@@ -61,6 +61,6 @@ export const getRandomArrayItem = (array) => {
   return array[randomIndex];
 };
 
-export const getSortedByRatingFilms = (array) => {
-  return array.sort((a, b) => a.rating * 10 > b.rating * 10 ? 1 : -1);
+export const getSortedFilms = (field) => {
+  return (a, b) => a[field] < b[field] ? 1 : -1;
 };

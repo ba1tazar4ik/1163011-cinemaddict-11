@@ -7,7 +7,7 @@ import {createShowMoreButtonTemplate} from "./components/show-more-button";
 import {generateFilms} from "./mock/film";
 import {generateUser} from "./mock/user";
 import {createFilmDetailsTemplate} from "./components/film-details";
-import {getSortedByRatingFilms} from "./utils";
+import {getSortedFilms, getSortedByCommentsFilms} from "./utils";
 
 const MAIN_FILMS_QUANTITY = 5;
 const EXTRA_FILMS_QUANTITY = 2;
@@ -28,11 +28,10 @@ const siteHeaderElement = document.querySelector(`.header`);
 const siteMainElement = document.querySelector(`.main`);
 const siteFooterElement = document.querySelector(`.footer`);
 
-const user = generateUser(5);
-const films = generateFilms(5, user);
-const sortedByRatingFilms = getSortedByRatingFilms(films);
-// const sortedByCommentsFilms = getSortedFilms(`comments`, films);
-console.log(sortedByRatingFilms);
+const user = generateUser(25);
+const films = generateFilms(25, user);
+const sortedByRatingFilms = films.slice().sort(getSortedFilms(`rating`));
+const sortedByCommentsFilms = films.slice().sort(getSortedFilms(`comments`));
 
 
 render(siteHeaderElement, createUserRatingTemplate(user));
@@ -43,6 +42,6 @@ const filmsSection = siteMainElement.querySelector(`.films`);
 const mainFilmListContainer = filmsSection.querySelector(`.films-list__container`);
 
 render(mainFilmListContainer, createShowMoreButtonTemplate(), `afterend`);
-render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilmCards(sortedByRatingFilms.slice(0, 2))));
-// render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilmCards(sortedByCommentsFilms.slice(0, 2))));
+render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilmCards(sortedByRatingFilms.slice(0, EXTRA_FILMS_QUANTITY))));
+render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilmCards(sortedByCommentsFilms.slice(0, EXTRA_FILMS_QUANTITY))));
 // render(siteFooterElement, createFilmDetailsTemplate(films[0]), `afterend`);

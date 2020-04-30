@@ -25,7 +25,7 @@ const generateFilm = (object) => {
     director: getRandomArrayItem(names),
     writers,
     actors,
-    comments: generateComments(getRandomIntegerNumber(0, 5)),
+    comments: generateComments(getRandomIntegerNumber(0, 25)),
     isWatchlist: object.watchlist.includes(title),
     isHistory: object.history.includes(title),
     isFavorites: object.favorites.includes(title),
