@@ -12,11 +12,30 @@ const shuffle = (array) => {
   return array;
 };
 
-export const formatDate = (date) => {
+
+export const getRandomDate = () => {
+  const currentDate = new Date();
+  const diffValue = -1 * getRandomIntegerNumber(0, 10000);
+
+  currentDate.setDate(currentDate.getDate() + diffValue);
+
+  return currentDate;
+};
+
+export const formatFilmDate = (date) => {
   const day = date.getDate();
   const month = months[date.getMonth()];
   const year = date.getFullYear();
-  return `${day} ${month} ${year}`;
+  const hours = date.getHours();
+  const mins = date.getMinutes();
+  return `${day} ${month} ${year} ${hours}:${mins}`;
+};
+
+export const formatCommentDate = (date) => {
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  return `${year}/${month}/${day}`;
 };
 
 export const formatDuration = (durationInMin) => {
@@ -40,4 +59,8 @@ export const getRandomArrayItem = (array) => {
   const randomIndex = getRandomIntegerNumber(0, array.length);
 
   return array[randomIndex];
+};
+
+export const getSortedByRatingFilms = (array) => {
+  return array.sort((a, b) => a.rating * 10 > b.rating * 10 ? 1 : -1);
 };

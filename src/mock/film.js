@@ -1,41 +1,39 @@
-import {filmTitles, filmPosters, filmGenres, filmDescriptions, filmAges, names, filmCountry} from "../const.js";
-import {getRandomArrayItem, getRandomIntegerNumber, getArrayOfUniqElements} from "../utils";
+import {filmTitles, filmPosters, filmGenres, filmDescription, filmAges, names, filmCountry} from "../const.js";
+import {getRandomArrayItem, getRandomIntegerNumber, getArrayOfUniqElements, getRandomDate} from "../utils";
+import {generateComments} from "./comment";
 
-const getRandomDate = () => {
-  const targetDate = new Date();
-  const diffValue = -1 * getRandomIntegerNumber(0, 10000);
+const filmDescriptions = filmDescription.split(`.`);
 
-  targetDate.setDate(targetDate.getDate() + diffValue);
-
-  return targetDate;
-};
-
-const generateFilm = () => {
+const generateFilm = (object) => {
+  const title = getRandomArrayItem(filmTitles);
   const rating = Math.floor(Math.random() * 100) / 10;
-  const age = getRandomArrayItem(filmAges) + `+`;
   const description = getArrayOfUniqElements(filmDescriptions, getRandomIntegerNumber(1, 5)).join(` `);
   const writers = getArrayOfUniqElements(names, getRandomIntegerNumber(1, 3)).join(`, `);
   const actors = getArrayOfUniqElements(names, getRandomIntegerNumber(1, 3)).join(`, `);
 
   return {
-    title: getRandomArrayItem(filmTitles),
+    title,
     originalTitle: getRandomArrayItem(filmTitles),
     rating,
     date: getRandomDate(),
     duration: getRandomIntegerNumber(10, 180),
     country: getRandomArrayItem(filmCountry),
     genre: getArrayOfUniqElements(filmGenres, getRandomIntegerNumber(1, 3)),
-    age,
+    age: getRandomArrayItem(filmAges),
     poster: getRandomArrayItem(filmPosters),
     description,
     director: getRandomArrayItem(names),
     writers,
     actors,
+    comments: generateComments(getRandomIntegerNumber(0, 5)),
+    isWatchlist: object.watchlist.includes(title),
+    isHistory: object.history.includes(title),
+    isFavorites: object.favorites.includes(title),
   };
 };
 
-export const generateFilms = (count) =>{
+export const generateFilms = (count, object) =>{
   return new Array(count)
     .fill(``)
-    .map(generateFilm);
+    .map(() => generateFilm(object));
 };
