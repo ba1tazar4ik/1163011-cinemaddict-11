@@ -8,14 +8,18 @@ import {generateFilms} from "./mock/film";
 import {generateUser} from "./mock/user";
 import {createFilmDetailsTemplate} from "./components/film-details";
 import {getRandomIntegerNumber, sortFilms} from "./utils";
+import {createStatisticsTemplate} from "./components/statistics";
 
-const MAIN_FILMS_QUANTITY = 5;
+const MAIN_FILMS_QUANTITY = 20;
 const EXTRA_FILMS_QUANTITY = 2;
+const SHOWING_FILMS_QUANTITY_AT_START = 5;
+const SHOWING_FILMS_QUANTITY_BY_BUTTON = 5;
 
-export const getFilmCards = (films) => {
-  films.reduce((accumulator, currentValue) => {
-    return accumulator + createFilmCardTemplate(currentValue);
-  }, ``);
+const getFilms = (films, firstFilm, lastFilm) => {
+  return films.slice(firstFilm, lastFilm)
+    .reduce((accumulator, currentValue) => {
+      return accumulator + createFilmCardTemplate(currentValue);
+    }, ``);
 };
 
 const render = (container, template, place = `beforeend`) => {
@@ -34,12 +38,27 @@ const sortedByCommentsFilms = films.slice().sort(sortFilms(`comments`));
 
 render(siteHeaderElement, createUserRatingTemplate(user));
 render(siteMainElement, createSiteMenuTemplate(user));
-render(siteMainElement, createMainContentTemplate(getFilmCards(films)));
+render(siteMainElement, createMainContentTemplate(getFilms(films, 0, SHOWING_FILMS_QUANTITY_AT_START)));
 
 const filmsSection = siteMainElement.querySelector(`.films`);
 const mainFilmListContainer = filmsSection.querySelector(`.films-list__container`);
 
 render(mainFilmListContainer, createShowMoreButtonTemplate(), `afterend`);
-render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilmCards(sortedByRatingFilms.slice(0, EXTRA_FILMS_QUANTITY))));
-render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilmCards(sortedByCommentsFilms.slice(0, EXTRA_FILMS_QUANTITY))));
+
+const showMoreButton = siteMainElement.querySelector(`.films-list__show-more`);
+let showingFilmsCount = SHOWING_FILMS_QUANTITY_AT_START;
+
+showMoreButton.addEventListener(`click`, () => {
+  const prevFilmsCount = showingFilmsCount;
+  showingFilmsCount += SHOWING_FILMS_QUANTITY_BY_BUTTON;
+  render(mainFilmListContainer, getFilms(films, prevFilmsCount, showingFilmsCount));
+
+  if (showingFilmsCount >= films.length) {
+    showMoreButton.remove();
+  }
+});
+
+render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilms(sortedByRatingFilms, 0, EXTRA_FILMS_QUANTITY)));
+render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilms(sortedByCommentsFilms, 0, EXTRA_FILMS_QUANTITY)));
+render(siteFooterElement, createStatisticsTemplate(films));
 // render(siteFooterElement, createFilmDetailsTemplate(films[0]), `afterend`);
