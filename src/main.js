@@ -15,7 +15,7 @@ const EXTRA_FILMS_QUANTITY = 2;
 const SHOWING_FILMS_QUANTITY_AT_START = 5;
 const SHOWING_FILMS_QUANTITY_BY_BUTTON = 5;
 
-const getFilms = (films, firstFilm, lastFilm) => {
+const getFilmsMarkup = (films, firstFilm, lastFilm) => {
   return films.slice(firstFilm, lastFilm)
     .reduce((accumulator, currentValue) => {
       return accumulator + createFilmCardTemplate(currentValue);
@@ -38,7 +38,7 @@ const sortedByCommentsFilms = films.slice().sort(sortFilms(`comments`));
 
 render(siteHeaderElement, createUserRatingTemplate(user));
 render(siteMainElement, createSiteMenuTemplate(user));
-render(siteMainElement, createMainContentTemplate(getFilms(films, 0, SHOWING_FILMS_QUANTITY_AT_START)));
+render(siteMainElement, createMainContentTemplate(getFilmsMarkup(films, 0, SHOWING_FILMS_QUANTITY_AT_START)));
 
 const filmsSection = siteMainElement.querySelector(`.films`);
 const mainFilmListContainer = filmsSection.querySelector(`.films-list__container`);
@@ -51,14 +51,14 @@ let showingFilmsCount = SHOWING_FILMS_QUANTITY_AT_START;
 showMoreButton.addEventListener(`click`, () => {
   const prevFilmsCount = showingFilmsCount;
   showingFilmsCount += SHOWING_FILMS_QUANTITY_BY_BUTTON;
-  render(mainFilmListContainer, getFilms(films, prevFilmsCount, showingFilmsCount));
+  render(mainFilmListContainer, getFilmsMarkup(films, prevFilmsCount, showingFilmsCount));
 
   if (showingFilmsCount >= films.length) {
     showMoreButton.remove();
   }
 });
 
-render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilms(sortedByRatingFilms, 0, EXTRA_FILMS_QUANTITY)));
-render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilms(sortedByCommentsFilms, 0, EXTRA_FILMS_QUANTITY)));
+render(filmsSection, createExtraFilmsListTemplate(`Top rated`, getFilmsMarkup(sortedByRatingFilms, 0, EXTRA_FILMS_QUANTITY)));
+render(filmsSection, createExtraFilmsListTemplate(`Most commented`, getFilmsMarkup(sortedByCommentsFilms, 0, EXTRA_FILMS_QUANTITY)));
 render(siteFooterElement, createStatisticsTemplate(films));
 // render(siteFooterElement, createFilmDetailsTemplate(films[0]), `afterend`);
