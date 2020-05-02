@@ -7,17 +7,15 @@ import {createShowMoreButtonTemplate} from "./components/show-more-button";
 import {generateFilms} from "./mock/film";
 import {generateUser} from "./mock/user";
 import {createFilmDetailsTemplate} from "./components/film-details";
-import {getSortedFilms, getSortedByCommentsFilms} from "./utils";
+import {getRandomIntegerNumber, sortFilms} from "./utils";
 
 const MAIN_FILMS_QUANTITY = 5;
 const EXTRA_FILMS_QUANTITY = 2;
 
 export const getFilmCards = (films) => {
-  let filmCards = ``;
-  for (let i = 0; i < films.length; i++) {
-    filmCards += createFilmCardTemplate(films[i]);
-  }
-  return filmCards;
+  films.reduce((accumulator, currentValue) => {
+    return accumulator + createFilmCardTemplate(currentValue);
+  }, ``);
 };
 
 const render = (container, template, place = `beforeend`) => {
@@ -28,10 +26,10 @@ const siteHeaderElement = document.querySelector(`.header`);
 const siteMainElement = document.querySelector(`.main`);
 const siteFooterElement = document.querySelector(`.footer`);
 
-const user = generateUser(25);
-const films = generateFilms(25, user);
-const sortedByRatingFilms = films.slice().sort(getSortedFilms(`rating`));
-const sortedByCommentsFilms = films.slice().sort(getSortedFilms(`comments`));
+const user = generateUser(getRandomIntegerNumber(0, MAIN_FILMS_QUANTITY));
+const films = generateFilms(MAIN_FILMS_QUANTITY, user);
+const sortedByRatingFilms = films.slice().sort(sortFilms(`rating`));
+const sortedByCommentsFilms = films.slice().sort(sortFilms(`comments`));
 
 
 render(siteHeaderElement, createUserRatingTemplate(user));
