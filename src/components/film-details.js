@@ -1,4 +1,4 @@
-import {formatCommentDate, formatDuration, formatFilmDate} from "../utils";
+import {createElement, formatCommentDate, formatDuration, formatFilmDate} from "../utils";
 import {emojis} from "../const";
 
 const generateFilmDetailsGenreMarkup = (array) => {
@@ -34,7 +34,7 @@ const generateNewFilmCommentEmojiListMarkup = (array) => {
   }, ``);
 };
 
-export const createFilmDetailsTemplate = (film) => {
+const createFilmDetailsTemplate = (film) => {
 
   const commentsCount = film.comments.length;
 
@@ -135,3 +135,25 @@ export const createFilmDetailsTemplate = (film) => {
   );
 };
 
+export default class FilmDetails {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmDetailsTemplate(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
