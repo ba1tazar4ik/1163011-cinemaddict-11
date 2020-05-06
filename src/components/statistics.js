@@ -1,9 +1,7 @@
 import {createElement} from "../utils";
 
 const createStatisticsTemplate = (films) => {
-  return ` <section class="footer__statistics">
-    <p>${films.length} movies inside</p>
-  </section>`;
+  return `<p>${films.length} movies inside</p>`;
 };
 
 export default class Statistics {

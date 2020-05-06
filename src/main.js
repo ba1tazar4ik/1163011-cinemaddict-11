@@ -8,7 +8,7 @@ import {generateFilms} from "./mock/film";
 import {generateUser} from "./mock/user";
 import FilmDetails from "./components/film-details";
 import {getRandomIntegerNumber, sortFilms, render, RenderPosition} from "./utils";
-import {createStatisticsTemplate} from "./components/statistics";
+import Statistics from "./components/statistics";
 import SortMenu from "./components/sort";
 
 const MAIN_FILMS_QUANTITY = 20;
@@ -18,7 +18,7 @@ const SHOWING_FILMS_QUANTITY_BY_BUTTON = 5;
 
 const siteHeaderElement = document.querySelector(`.header`);
 const siteMainElement = document.querySelector(`.main`);
-const siteFooterElement = document.querySelector(`.footer`);
+const siteFooterElement = document.querySelector(`.footer__statistics`);
 
 const user = generateUser(getRandomIntegerNumber(0, MAIN_FILMS_QUANTITY));
 const films = generateFilms(MAIN_FILMS_QUANTITY, user);
@@ -33,12 +33,13 @@ const mainContent = new MainContent();
 
 render(siteMainElement, mainContent.getElement(), `beforeend`);
 
-const filmsSection = mainContent.getElement().querySelector(`.films`);
-const mainFilmListContainer = mainContent.getElement().querySelector(`.films-list__container`);
-console.log(filmsSection);
+const filmsSection = mainContent.getElement();
+const filmsListSection = filmsSection.querySelector(`.films-list`);
+const mainFilmListContainer = filmsSection.querySelector(`.films-list__container`);
 
 const renderFilm = (filmListElement, film) => {
   const filmCardComponent = new FilmCard(film);
+  console.log(filmCardComponent.getElement().querySelectorAll(`.film-card__title`, `.film-card__rating`));
   render(filmListElement, filmCardComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
@@ -47,7 +48,7 @@ const renderMainContent = (mainContentElement, filmsData) => {
     renderFilm(mainContentElement, film);
   });
   const showMoreButton = new ShowMoreButton();
-  render(mainContentElement, showMoreButton.getElement(), `beforeend`);
+  render(filmsListSection, showMoreButton.getElement(), `beforeend`);
 
   const topRatedList = new ExtraFilmsList(`Top rated`);
   const topRatedListContainer = topRatedList.getElement().querySelector(`.films-list__container`);
@@ -68,4 +69,5 @@ const renderMainContent = (mainContentElement, filmsData) => {
   });
 };
 renderMainContent(mainFilmListContainer, films);
-render(siteFooterElement, createStatisticsTemplate(films));
+const filmsStatistics = new Statistics(films);
+render(siteFooterElement, filmsStatistics.getElement(), `beforeend`);
