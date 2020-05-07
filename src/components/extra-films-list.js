@@ -13,12 +13,12 @@ const createExtraFilmsListTemplate = (filmsListTittle) => {
 
 export default class ExtraFilmsList {
   constructor(filmsListTittle) {
-    this._ListTittle = filmsListTittle;
+    this._listTittle = filmsListTittle;
     this._element = null;
   }
 
   getTemplate() {
-    return createExtraFilmsListTemplate(this._ListTittle);
+    return createExtraFilmsListTemplate(this._listTittle);
   }
 
   getElement() {

@@ -16,6 +16,7 @@ const EXTRA_FILMS_QUANTITY = 2;
 const SHOWING_FILMS_QUANTITY_AT_START = 5;
 const SHOWING_FILMS_QUANTITY_BY_BUTTON = 5;
 
+const bodyElement = document.querySelector(`body`);
 const siteHeaderElement = document.querySelector(`.header`);
 const siteMainElement = document.querySelector(`.main`);
 const siteFooterElement = document.querySelector(`.footer__statistics`);
@@ -38,8 +39,7 @@ const filmsListSection = filmsSection.querySelector(`.films-list`);
 const mainFilmListContainer = filmsSection.querySelector(`.films-list__container`);
 
 const renderFilm = (filmListElement, film) => {
-  const bodyElement = document.querySelector(`body`);
-  let filmDetailsComponent = ``;
+  let filmDetailsComponent = null;
 
   const addFilmDetails = () => {
     bodyElement.appendChild(filmDetailsComponent.getElement());
