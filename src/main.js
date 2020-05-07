@@ -53,10 +53,8 @@ const renderFilm = (filmListElement, film) => {
   const filmCardComponent = new FilmCard(film);
   const elementsListForClick = filmCardComponent.getElement().querySelectorAll(`.film-card__title, .film-card__comments, .film-card__poster`);
 
-  const escapeKeyDownHandler = (evt) => {
-    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
-
-    if (isEscKey) {
+  const escapeKeyDownHandler = (evt) => {пше
+    if (evt.key === `Escape` || evt.key === `Esc`) {
       removeFilmDetails();
       document.removeEventListener(`keydown`, escapeKeyDownHandler);
     }
