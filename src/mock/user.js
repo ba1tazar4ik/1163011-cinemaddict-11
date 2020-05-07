@@ -3,7 +3,6 @@ import {filmTitles} from "../const";
 
 const generateUserRating = (array) => {
   let rating = ``;
-  console.log(array);
 
   switch (true) {
     case array.length === 0:
