@@ -4,7 +4,7 @@ import {generateComments} from "./comment";
 
 const filmDescriptions = filmDescription.split(`.`);
 
-const generateFilm = (filmData) => {
+const generateFilm = (userData) => {
   const title = getRandomArrayItem(filmTitles);
   const rating = Math.floor(Math.random() * 100) / 10;
   const description = getArrayOfUniqElements(filmDescriptions, getRandomIntegerNumber(1, 5)).join(` `);
@@ -26,14 +26,14 @@ const generateFilm = (filmData) => {
     writers,
     actors,
     comments: generateComments(getRandomIntegerNumber(0, 5)),
-    isWatchlist: filmData.watchlist.includes(title),
-    isHistory: filmData.history.includes(title),
-    isFavorites: filmData.favorites.includes(title),
+    isWatchlist: userData.watchlist.includes(title),
+    isHistory: userData.history.includes(title),
+    isFavorites: userData.favorites.includes(title),
   };
 };
 
-export const generateFilms = (count, filmData) =>{
+export const generateFilms = (count, userData) =>{
   return new Array(count)
     .fill(``)
-    .map(() => generateFilm(filmData));
+    .map(() => generateFilm(userData));
 };
