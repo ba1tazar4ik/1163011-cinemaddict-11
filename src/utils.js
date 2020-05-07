@@ -1,5 +1,10 @@
 import {months} from "./const";
 
+export const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
 const shuffle = (array) => {
   let j = 0;
   let temp = [];
@@ -63,4 +68,22 @@ export const getRandomArrayItem = (array) => {
 
 export const sortFilms = (field) => {
   return (a, b) => a[field] < b[field] ? 1 : -1;
+};
+
+export const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
+export const render = (container, element, place) => {
+  switch (place) {
+    case RenderPosition.AFTERBEGIN:
+      container.prepend(element);
+      break;
+    case RenderPosition.BEFOREEND:
+      container.append(element);
+      break;
+  }
 };

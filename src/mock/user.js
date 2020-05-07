@@ -20,9 +20,8 @@ const generateUserRating = (array) => {
 };
 
 export const generateUser = (quantity) => {
-  const history = getArrayOfUniqElements(filmTitles, getRandomIntegerNumber(0, quantity));
   return {
-    history,
+    history: getArrayOfUniqElements(filmTitles, getRandomIntegerNumber(0, quantity)),
     watchlist: getArrayOfUniqElements(filmTitles, getRandomIntegerNumber(0, quantity)),
     favorites: getArrayOfUniqElements(filmTitles, getRandomIntegerNumber(0, quantity)),
     rating: generateUserRating(history),

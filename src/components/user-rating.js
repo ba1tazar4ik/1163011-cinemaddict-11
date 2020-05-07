@@ -1,4 +1,6 @@
-export const createUserRatingTemplate = (userData) => {
+import {createElement} from "../utils";
+
+const createUserRatingTemplate = (userData) => {
   return (
     `<section class="header__profile profile">
     <p class="profile__rating">${userData.rating}</p>
@@ -7,3 +9,25 @@ export const createUserRatingTemplate = (userData) => {
   );
 };
 
+export default class UserRating {
+  constructor(userData) {
+    this._user = userData;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createUserRatingTemplate(this._user);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
