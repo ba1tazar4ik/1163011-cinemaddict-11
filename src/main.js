@@ -23,7 +23,6 @@ const siteMainElement = document.querySelector(`.main`);
 const siteFooterElement = document.querySelector(`.footer__statistics`);
 
 const user = generateUser(getRandomIntegerNumber(0, MAIN_FILMS_QUANTITY));
-console.log(user);
 const films = generateFilms(MAIN_FILMS_QUANTITY, user);
 const sortedByRatingFilms = films.slice().sort(sortFilms(`rating`));
 const sortedByCommentsFilms = films.slice().sort(sortFilms(`comments`));
