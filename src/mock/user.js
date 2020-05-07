@@ -5,6 +5,9 @@ const generateUserRating = (array) => {
   let rating = ``;
 
   switch (true) {
+    case array.length === 0:
+      rating = ``;
+      break;
     case array.length > 0 && array.length < 11 :
       rating = `novice`;
       break;
