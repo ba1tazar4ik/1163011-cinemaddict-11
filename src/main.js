@@ -9,7 +9,7 @@ import {generateUser} from "./mock/user.js";
 import FilmDetails from "./components/film-details.js";
 import {getRandomIntegerNumber, sortFilms, render, RenderPosition} from "./utils.js";
 import Statistics from "./components/statistics.js";
-import SortMenu from "./components/sort.js";
+import SortMenu from "./components/sort-menu.js";
 import MainContentNoData from "./components/main-content-no-data.js";
 
 const MAIN_FILMS_QUANTITY = 20;
