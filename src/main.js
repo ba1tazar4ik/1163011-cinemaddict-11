@@ -1,16 +1,16 @@
 import UserRating from "./components/user-rating.js";
 import SiteMenu from "./components/site-menu.js";
-import MainContent from "./components/main-content";
-import FilmCard from "./components/film-card";
-import ExtraFilmsList from "./components/extra-films-list";
-import ShowMoreButton from "./components/show-more-button";
-import {generateFilms} from "./mock/film";
-import {generateUser} from "./mock/user";
-import FilmDetails from "./components/film-details";
-import {getRandomIntegerNumber, sortFilms, render, RenderPosition} from "./utils";
-import Statistics from "./components/statistics";
-import SortMenu from "./components/sort";
-import MainContentNoData from "./components/main-content-no-data";
+import MainContent from "./components/main-content.js";
+import FilmCard from "./components/film-card.js";
+import ExtraFilmsList from "./components/extra-films-list.js";
+import ShowMoreButton from "./components/show-more-button.js";
+import {generateFilms} from "./mock/film.js";
+import {generateUser} from "./mock/user.js";
+import FilmDetails from "./components/film-details.js";
+import {getRandomIntegerNumber, sortFilms, render, RenderPosition} from "./utils.js";
+import Statistics from "./components/statistics.js";
+import SortMenu from "./components/sort.js";
+import MainContentNoData from "./components/main-content-no-data.js";
 
 const MAIN_FILMS_QUANTITY = 20;
 const EXTRA_FILMS_QUANTITY = 2;

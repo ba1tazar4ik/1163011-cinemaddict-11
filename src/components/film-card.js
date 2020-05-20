@@ -1,4 +1,4 @@
-import {formatDuration, createElement} from "../utils";
+import {formatDuration, createElement} from "../utils.js";
 
 const createFilmCardTemplate = (film) => {
   const commentsCount = film.comments.length;
