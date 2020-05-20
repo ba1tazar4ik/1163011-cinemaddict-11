@@ -11,7 +11,7 @@ const createExtraFilmsListTemplate = (filmsListTittle) => {
   );
 };
 
-export default class ExtraFilmsList extends AbstractComponent{
+export default class ExtraFilmsList extends AbstractComponent {
   constructor(filmsListTittle) {
     super();
 
