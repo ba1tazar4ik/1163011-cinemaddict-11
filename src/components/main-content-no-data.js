@@ -1,4 +1,4 @@
-import {createElement} from "../utils";
+import AbstractComponent from "./abstract-component.js";
 
 const createMainContentNoDataTemplate = () => {
   return (
@@ -6,24 +6,9 @@ const createMainContentNoDataTemplate = () => {
   );
 };
 
-export default class MainContentNoData {
-  constructor() {
-    this._element = null;
-  }
+export default class MainContentNoData extends AbstractComponent {
 
   getTemplate() {
     return createMainContentNoDataTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

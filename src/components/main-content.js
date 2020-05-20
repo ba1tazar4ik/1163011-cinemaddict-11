@@ -15,9 +15,6 @@ const createMainContentTemplate = () => {
 };
 
 export default class MainContent extends AbstractComponent {
-  constructor() {
-    super();
-  }
 
   getTemplate() {
     return createMainContentTemplate();
