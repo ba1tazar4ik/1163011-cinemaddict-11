@@ -1,5 +1,5 @@
-import {formatCommentDate, formatDuration, formatFilmDate} from "../utils";
-import {emojis} from "../const";
+import {formatCommentDate, formatDuration, formatFilmDate} from "../utils/common.js";
+import {emojis} from "../const.js";
 import AbstractComponent from "./abstract-component.js";
 
 const generateFilmDetailsGenreMarkup = (array) => {

@@ -1,6 +1,6 @@
 import {filmTitles, filmPosters, filmGenres, filmDescription, filmAges, names, filmCountry} from "../const.js";
-import {getRandomArrayItem, getRandomIntegerNumber, getArrayOfUniqElements, getRandomDate} from "../utils";
-import {generateComments} from "./comment";
+import {getRandomArrayItem, getRandomIntegerNumber, getArrayOfUniqElements, getRandomDate} from "../utils/common.js";
+import {generateComments} from "./comment.js";
 
 const filmDescriptions = filmDescription.split(`.`);
 
