@@ -8,7 +8,7 @@ import {generateFilms} from "./mock/film.js";
 import {generateUser} from "./mock/user.js";
 import FilmDetails from "./components/film-details.js";
 import {getRandomIntegerNumber, sortFilms} from "./utils/common.js";
-import {render, RenderPosition} from "./utils/render.js";
+import {render, replace, remove, RenderPosition} from "./utils/render.js";
 import Statistics from "./components/statistics.js";
 import SortMenu from "./components/sort-menu.js";
 import MainContentNoData from "./components/main-content-no-data.js";
@@ -28,13 +28,13 @@ const films = generateFilms(MAIN_FILMS_QUANTITY, user);
 const sortedByRatingFilms = films.slice().sort(sortFilms(`rating`));
 const sortedByCommentsFilms = films.slice().sort(sortFilms(`comments`));
 
-render(siteHeaderElement, new UserRating(user).getElement(), `beforeend`);
-render(siteMainElement, new SiteMenu(user).getElement(), `beforeend`);
-render(siteMainElement, new SortMenu().getElement(), `beforeend`);
+render(siteHeaderElement, new UserRating(user), RenderPosition.BEFOREEND);
+render(siteMainElement, new SiteMenu(user), RenderPosition.BEFOREEND);
+render(siteMainElement, new SortMenu(), RenderPosition.BEFOREEND);
 
 const mainContent = new MainContent();
 
-render(siteMainElement, mainContent.getElement(), `beforeend`);
+render(siteMainElement, mainContent, RenderPosition.BEFOREEND);
 
 const filmsSection = mainContent.getElement();
 const filmsListSection = filmsSection.querySelector(`.films-list`);
@@ -74,7 +74,7 @@ const renderFilm = (filmListElement, film) => {
     });
   });
 
-  render(filmListElement, filmCardComponent.getElement(), RenderPosition.BEFOREEND);
+  render(filmListElement, filmCardComponent, RenderPosition.BEFOREEND);
 };
 
 const renderMainContent = (mainFilmsListElement, filmsData) => {
@@ -83,7 +83,7 @@ const renderMainContent = (mainFilmsListElement, filmsData) => {
     renderFilm(mainFilmsListElement, film);
   });
   const showMoreButton = new ShowMoreButton();
-  render(filmsListSection, showMoreButton.getElement(), `beforeend`);
+  render(filmsListSection, showMoreButton, RenderPosition.BEFOREEND);
 
   showMoreButton.getElement().addEventListener(`click`, () => {
     const prevFilmsCount = showingFilmsCount;
@@ -94,15 +94,14 @@ const renderMainContent = (mainFilmsListElement, filmsData) => {
     });
 
     if (showingFilmsCount >= filmsData.length) {
-      showMoreButton.getElement().remove();
-      showMoreButton.removeElement();
+      remove(showMoreButton);
     }
   });
 
   const topRatedList = new ExtraFilmsList(`Top rated`);
   const topRatedListContainer = topRatedList.getElement().querySelector(`.films-list__container`);
 
-  render(filmsSection, topRatedList.getElement(), `beforeend`);
+  render(filmsSection, topRatedList, RenderPosition.BEFOREEND);
 
   sortedByRatingFilms.slice(0, EXTRA_FILMS_QUANTITY).forEach((film)=>{
     renderFilm(topRatedListContainer, film);
@@ -111,7 +110,7 @@ const renderMainContent = (mainFilmsListElement, filmsData) => {
   const mostCommentedList = new ExtraFilmsList(`Most commented`);
   const mostCommentedListContainer = mostCommentedList.getElement().querySelector(`.films-list__container`);
 
-  render(filmsSection, mostCommentedList.getElement(), `beforeend`);
+  render(filmsSection, mostCommentedList, RenderPosition.BEFOREEND);
 
   sortedByCommentsFilms.slice(0, EXTRA_FILMS_QUANTITY).forEach((film)=>{
     renderFilm(mostCommentedListContainer, film);
@@ -119,7 +118,7 @@ const renderMainContent = (mainFilmsListElement, filmsData) => {
 };
 
 const renderMainContentNoData = (mainContentElement) =>{
-  mainContentElement.getElement().querySelector(`.films-list`).replaceChild(new MainContentNoData().getElement(), mainContentElement.getElement().querySelector(`.films-list__title`))
+  replace(new MainContentNoData(), mainContentElement);
 };
 
 if (films.length > 0) {
@@ -128,4 +127,4 @@ if (films.length > 0) {
   renderMainContentNoData(mainContent);
 }
 const filmsStatistics = new Statistics(films);
-render(siteFooterElement, filmsStatistics.getElement(), `beforeend`);
+render(siteFooterElement, filmsStatistics, RenderPosition.BEFOREEND);
