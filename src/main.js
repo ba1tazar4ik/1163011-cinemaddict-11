@@ -52,7 +52,15 @@ const renderFilm = (filmListElement, film) => {
   };
 
   const filmCardComponent = new FilmCard(film);
-  const elementsListForClick = filmCardComponent.getElement().querySelectorAll(`.film-card__title, .film-card__comments, .film-card__poster`);
+  filmCardComponent.setClickHandler(() => {
+    filmDetailsComponent = new FilmDetails(film);
+    addFilmDetails();
+    filmDetailsComponent.setClickHandler(() => {
+      removeFilmDetails();
+    });
+
+    document.addEventListener(`keydown`, escapeKeyDownHandler);
+  });
 
   const escapeKeyDownHandler = (evt) => {
     if (evt.key === `Escape` || evt.key === `Esc`) {
@@ -61,18 +69,18 @@ const renderFilm = (filmListElement, film) => {
     }
   };
 
-  elementsListForClick.forEach((current) => {
-    current.addEventListener(`click`, () => {
-      filmDetailsComponent = new FilmDetails(film);
-      const closePopUPButton = filmDetailsComponent.getElement().querySelector(`.film-details__close-btn`);
-      addFilmDetails();
-      closePopUPButton.addEventListener(`click`, () => {
-        removeFilmDetails();
-      });
-
-      document.addEventListener(`keydown`, escapeKeyDownHandler);
-    });
-  });
+  // elementsListForClick.forEach((current) => {
+  //   current.addEventListener(`click`, () => {
+  //     filmDetailsComponent = new FilmDetails(film);
+  //     const closePopUPButton = filmDetailsComponent.getElement().querySelector(`.film-details__close-btn`);
+  //     addFilmDetails();
+  //     closePopUPButton.addEventListener(`click`, () => {
+  //       removeFilmDetails();
+  //     });
+  //
+  //     document.addEventListener(`keydown`, escapeKeyDownHandler);
+  //   });
+  // });
 
   render(filmListElement, filmCardComponent, RenderPosition.BEFOREEND);
 };

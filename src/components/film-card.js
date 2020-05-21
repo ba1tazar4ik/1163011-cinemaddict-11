@@ -1,5 +1,6 @@
 import {formatDuration} from "../utils/common.js";
 import AbstractComponent from "./abstract-component.js";
+import FilmDetails from "./film-details.js";
 
 const createFilmCardTemplate = (film) => {
   const commentsCount = film.comments.length;
@@ -32,5 +33,13 @@ export default class FilmCard extends AbstractComponent {
 
   getTemplate() {
     return createFilmCardTemplate(this._film);
+  }
+
+  setClickHandler(handler) {
+    const elementsListForClick = this.getElement().querySelectorAll(`.film-card__title, .film-card__comments, .film-card__poster`);
+
+    elementsListForClick.forEach((current) => {
+      current.addEventListener(`click`, handler);
+    });
   }
 }
