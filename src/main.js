@@ -85,7 +85,7 @@ const renderMainContent = (mainFilmsListElement, filmsData) => {
   const showMoreButton = new ShowMoreButton();
   render(filmsListSection, showMoreButton, RenderPosition.BEFOREEND);
 
-  showMoreButton.getElement().addEventListener(`click`, () => {
+  showMoreButton.setClickHandler(() => {
     const prevFilmsCount = showingFilmsCount;
     showingFilmsCount += SHOWING_FILMS_QUANTITY_BY_BUTTON;
 
