@@ -1,6 +1,5 @@
 import {formatDuration} from "../utils/common.js";
 import AbstractComponent from "./abstract-component.js";
-import FilmDetails from "./film-details.js";
 
 const createFilmCardTemplate = (film) => {
   const commentsCount = film.comments.length;
