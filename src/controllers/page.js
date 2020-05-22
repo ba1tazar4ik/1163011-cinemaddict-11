@@ -23,7 +23,17 @@ const renderFilm = (filmListElement, film) => {
     bodyElement.removeChild(filmDetailsComponent.getElement());
   };
 
+  const escapeKeyDownHandler = (evt) => {
+    if (evt.key === `Escape` || evt.key === `Esc`) {
+      removeFilmDetails();
+      document.removeEventListener(`keydown`, escapeKeyDownHandler);
+    }
+  };
+
   const filmCardComponent = new FilmCard(film);
+
+  render(filmListElement, filmCardComponent, RenderPosition.BEFOREEND);
+
   filmCardComponent.setClickHandler(() => {
     filmDetailsComponent = new FilmDetails(film);
     addFilmDetails();
@@ -33,15 +43,6 @@ const renderFilm = (filmListElement, film) => {
 
     document.addEventListener(`keydown`, escapeKeyDownHandler);
   });
-
-  const escapeKeyDownHandler = (evt) => {
-    if (evt.key === `Escape` || evt.key === `Esc`) {
-      removeFilmDetails();
-      document.removeEventListener(`keydown`, escapeKeyDownHandler);
-    }
-  };
-
-  render(filmListElement, filmCardComponent, RenderPosition.BEFOREEND);
 };
 
 export default class PageController {
