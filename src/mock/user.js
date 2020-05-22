@@ -1,5 +1,5 @@
-import {getArrayOfUniqElements, getRandomIntegerNumber} from "../utils";
-import {filmTitles} from "../const";
+import {getArrayOfUniqElements, getRandomIntegerNumber} from "../utils/common.js";
+import {filmTitles} from "../const.js";
 
 const generateUserRating = (array) => {
   let rating = ``;

@@ -1,5 +1,5 @@
-import {comments, emojis, names} from "../const";
-import {getRandomArrayItem, getRandomDate} from "../utils";
+import {comments, emojis, names} from "../const.js";
+import {getRandomArrayItem, getRandomDate} from "../utils/common.js";
 
 const generateComment = () => {
   return {
