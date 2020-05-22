@@ -39,6 +39,7 @@ const renderFilm = (filmListElement, film) => {
     addFilmDetails();
     filmDetailsComponent.setClickHandler(() => {
       removeFilmDetails();
+      document.removeEventListener(`keydown`, escapeKeyDownHandler);
     });
 
     document.addEventListener(`keydown`, escapeKeyDownHandler);
