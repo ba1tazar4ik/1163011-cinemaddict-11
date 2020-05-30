@@ -119,7 +119,7 @@ export default class PageController {
   }
 
   _sortTypeChangeHandler(sortType) {
-    this._showingFilmsCount = SHOWING_FILMS_QUANTITY_AT_START;
+    this._showingFilmsCount = SHOWING_FILMS_QUANTITY_BY_BUTTON;
 
     const sortedFilms = getSortedFilms(this._films, sortType, 0, this._showingFilmsCount);
 
