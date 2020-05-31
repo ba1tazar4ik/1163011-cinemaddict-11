@@ -22,13 +22,15 @@ export default class MovieController {
     this._filmCard.setClickHandler(() => {
       this._filmDetail = new FilmDetails(film);
       this._addFilmDetails();
-      this._filmDetail.setClickHandler(() => {
-        this._removeFilmDetails();
-        document.removeEventListener(`keydown`, this._escapeKeyDownHandler);
-      });
+      this._filmDetail.setClickHandler(filmDetailButtonCloseClickHandler);
 
       document.addEventListener(`keydown`, this._escapeKeyDownHandler);
     });
+
+    const filmDetailButtonCloseClickHandler = () => {
+      this._removeFilmDetails();
+      document.removeEventListener(`keydown`, this._escapeKeyDownHandler);
+    };
   }
 
   _addFilmDetails() {
