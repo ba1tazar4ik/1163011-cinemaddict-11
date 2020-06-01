@@ -11,9 +11,9 @@ const EXTRA_FILMS_QUANTITY = 2;
 const SHOWING_FILMS_QUANTITY_AT_START = 5;
 const SHOWING_FILMS_QUANTITY_BY_BUTTON = 5;
 
-const renderFilms = (mainFilmListContainer, films) => {
+const renderFilms = (mainFilmListContainer, films, onDataChange) => {
   return films.map((film) => {
-    const filmController = new MovieController(mainFilmListContainer);
+    const filmController = new MovieController(mainFilmListContainer, onDataChange);
 
     filmController.render(film);
 
@@ -57,6 +57,7 @@ export default class PageController {
     this._mostCommentedListComponent = new ExtraFilmsList(`Most commented`);
 
     this._sortTypeChangeHandler = this._sortTypeChangeHandler.bind(this);
+    this._onDataChange = this._onDataChange.bind(this);
 
     this._sortComponent.setSortTypeChangeHandler(this._sortTypeChangeHandler);
     this._sortComponent.setClickOnSortMenuItemHandler();
@@ -80,7 +81,7 @@ export default class PageController {
       return;
     }
 
-    const newFilms = renderFilms(this._mainFilmListContainer, this._films.slice(0, this._showingFilmsCount));
+    const newFilms = renderFilms(this._mainFilmListContainer, this._films.slice(0, this._showingFilmsCount), this._onDataChange);
     this._showedFilmControllers = this._showedFilmControllers.concat(newFilms);
     this._renderShowMoreButton();
 
@@ -100,7 +101,7 @@ export default class PageController {
       this._showingFilmsCount += SHOWING_FILMS_QUANTITY_BY_BUTTON;
 
       const sortedFilms = getSortedFilms(this._films, this._sortComponent.getSortType(), prevFilmsCount, this._showingFilmsCount);
-      const newFilms = renderFilms(this._mainFilmListContainer, sortedFilms);
+      const newFilms = renderFilms(this._mainFilmListContainer, sortedFilms, this._onDataChange);
       this._showedFilmControllers = this._showedFilmControllers.concat(newFilms);
 
       if (this._showingFilmsCount >= this._films.length) {
@@ -125,9 +126,20 @@ export default class PageController {
 
     this._mainFilmListContainer.innerHTML = ``;
 
-    const newFilms = renderFilms(this._mainFilmListContainer, sortedFilms);
+    const newFilms = renderFilms(this._mainFilmListContainer, sortedFilms, this._onDataChange);
     this._showedFilmControllers = this._showedFilmControllers.concat(newFilms);
 
     this._renderShowMoreButton();
+  }
+
+  _onDataChange(filmController, oldData, newData) {
+    const index = this._films.findIndex((it) => it === oldData);
+
+    if (index === -1) {
+      return;
+    }
+
+    this._films = [].concat(this._films.slice(0, index), newData, this._films.slice(index + 1));
+    filmController.render(this._films[index]);
   }
 }
