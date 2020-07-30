@@ -45,4 +45,21 @@ export default class SortMenu extends AbstractComponent {
       }
     });
   }
+
+  setClickOnSortMenuItemHandler() {
+    const menuItems = this.getElement().querySelectorAll(`.sort__button`);
+    let currentMenuItem = this.getElement().querySelector(`.sort__button--active`);
+    menuItems.forEach((it) => {
+      it.addEventListener(`click`, (evt) => {
+        if (evt.target !== currentMenuItem) {
+          if (currentMenuItem) {
+            currentMenuItem.classList.remove(`sort__button--active`);
+          }
+
+          currentMenuItem = evt.target;
+          currentMenuItem.classList.add(`sort__button--active`);
+        }
+      });
+    });
+  }
 }
